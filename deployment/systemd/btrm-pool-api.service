@@ -1,0 +1,17 @@
+[Unit]
+Description=Bitoreum pool: public API (127.0.0.1:8140)
+After=btrm-pool-redis.service btrm-node.service
+Requires=btrm-pool-redis.service
+[Service]
+Type=simple
+User=btrmpool
+WorkingDirectory=/opt/btrm-nodejs-pool
+ExecStart=/usr/bin/node /opt/btrm-nodejs-pool/init.js -module=api
+Restart=always
+RestartSec=5
+TimeoutStopSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

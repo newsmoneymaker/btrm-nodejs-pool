@@ -1,0 +1,19 @@
+[Unit]
+Description=Bitoreum node (bitoreumd): the chain, the block templates and the pool wallet
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=btrmpool
+# bitoreum.conf: server=1, listen=1, rpcuser/rpcpassword, rpcbind=127.0.0.1, rpcport=15167, port=15168, addnode=<peers>, see docs/INSTALL.md
+ExecStart=/opt/btrm/bin/bitoreumd -datadir=/opt/btrm/data -conf=/opt/btrm/data/bitoreum.conf -printtoconsole
+Restart=on-failure
+RestartSec=30
+LimitNOFILE=65536
+TimeoutStopSec=180
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

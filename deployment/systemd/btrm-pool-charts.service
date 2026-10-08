@@ -1,0 +1,17 @@
+[Unit]
+Description=Bitoreum pool: charts data collector (hash rate, difficulty, miners, workers on the home page)
+After=btrm-pool-redis.service btrm-pool-api.service
+Requires=btrm-pool-redis.service
+[Service]
+Type=simple
+User=btrmpool
+WorkingDirectory=/opt/btrm-nodejs-pool
+ExecStart=/usr/bin/node /opt/btrm-nodejs-pool/init.js -module=chartsDataCollector
+Restart=always
+RestartSec=5
+TimeoutStopSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
